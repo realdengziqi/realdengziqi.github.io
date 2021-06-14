@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>邓子琦|个人主页</title>
+    <link>http://81.80.203.121/</link>
+    
+    <image>
+      <url>http://81.80.203.121/img/icon.png</url>
+      <title>邓子琦|个人主页</title>
+      <link>http://81.80.203.121/</link>
+    </image>
+    
+    <atom:link href="http://81.80.203.121/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>邓子琦的个人主页，致力于一切关于数据的知识分享</description>
+    <pubDate>Fri, 11 Jun 2021 17:34:58 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://81.80.203.121/post/about.html</link>
+      <guid>http://81.80.203.121/post/about.html</guid>
+      <pubDate>Sat, 12 Jun 2021 03:51:24 GMT</pubDate>
+      
+      <description>邓子琦的个人主页，致力于分享关于数字化的内容.与你一起进步</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="个人介绍"><a href="#个人介绍" class="headerlink" title="个人介绍"></a>个人介绍</h2><p>··· 省略</p>]]></content:encoded>
+      
+      
+      
+      <category domain="http://81.80.203.121/tags/%E5%85%B3%E4%BA%8E%E6%88%91/">关于我</category>
+      
+      
+      <comments>http://81.80.203.121/post/about.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>友链</title>
+      <link>http://81.80.203.121/post/link.html</link>
+      <guid>http://81.80.203.121/post/link.html</guid>
+      <pubDate>Sat, 12 Jun 2021 03:51:24 GMT</pubDate>
+      
+      <description>邓子琦个人博客的友链列表</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="互粉"><a href="#互粉" class="headerlink" title="互粉"></a>互粉</h2><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2>]]></content:encoded>
+      
+      
+      
+      <category domain="http://81.80.203.121/tags/%E5%8F%8B%E9%93%BE/">友链</category>
+      
+      
+      <comments>http://81.80.203.121/post/link.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>测试文章</title>
+      <link>http://81.80.203.121/post/bGnanEwvCE0G8VBM.html</link>
+      <guid>http://81.80.203.121/post/bGnanEwvCE0G8VBM.html</guid>
+      <pubDate>Fri, 11 Jun 2021 09:11:02 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;Python-amp-小知识-zip-函数的真实含义是拉链——Python中的并行遍历&quot;&gt;&lt;a href=&quot;#Python-amp-小知识-zip-函数的真实含义是拉链——Python中的并行遍历&quot; class=&quot;headerlink&quot; title=&quot;[Pytho</description>
+        
+      
+      
+      <enclosure url="http://81.80.203.121/https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/20210611171000.png" type="image"/>
+      
+      
+      <content:encoded><![CDATA[<h1 id="Python-amp-小知识-zip-函数的真实含义是拉链——Python中的并行遍历"><a href="#Python-amp-小知识-zip-函数的真实含义是拉链——Python中的并行遍历" class="headerlink" title="[Python&amp;小知识]zip()函数的真实含义是拉链——Python中的并行遍历"></a>[Python&amp;小知识]zip()函数的真实含义是拉链——Python中的并行遍历</h1><p><strong>本文目录</strong></p><ul><li>写本文的原因</li><li>一个简单的例子</li><li>图解zip()</li></ul><h2 id="写文本的原因"><a href="#写文本的原因" class="headerlink" title="写文本的原因"></a>写文本的原因</h2><p>我今天发现有些人对Python中<code>zip</code>函数的理解是压缩。这其实误解了<code>zip</code>的作用。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/QQ%E5%9B%BE%E7%89%8720210518012658.png" alt="聊天记录"></p><p>在python里面，<code>zip</code>其实就是字面意思 <strong>拉链</strong> !</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210518013333185.png" alt="zip的含义(百度词典)"></p><h2 id="直接上例子"><a href="#直接上例子" class="headerlink" title="直接上例子"></a>直接上例子</h2><p>先定义两个列表，代码如下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">y = [<span class="string">&quot;小明&quot;</span>,<span class="string">&quot;小张&quot;</span>,<span class="string">&quot;小王&quot;</span>,<span class="string">&quot;小李&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;我开始拉拉链了&quot;</span>)</span><br><span class="line"><span class="comment"># for循环开始</span></span><br><span class="line"><span class="keyword">for</span> num,name <span class="keyword">in</span> <span class="built_in">zip</span>(x,y):</span><br><span class="line">    <span class="built_in">print</span>(num,name)</span><br><span class="line"><span class="comment"># for循环结束</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;我拉完了&quot;</span>)</span><br></pre></td></tr></table></figure><p>运行输出:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">我开始拉拉链了</span></span><br><span class="line"><span class="string">1 小明</span></span><br><span class="line"><span class="string">2 小张</span></span><br><span class="line"><span class="string">3 小王</span></span><br><span class="line"><span class="string">4 小李</span></span><br><span class="line"><span class="string">我拉完了</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure><p>不妨再看看<code>zip(x,y)</code>生成列表之后的结果</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">zip</span>(x,y)))</span><br><span class="line"><span class="comment">#其实之所以能够并行遍历其实还跟python里</span></span><br><span class="line"><span class="comment"># 的元组解包有关系</span></span><br></pre></td></tr></table></figure><p>运行输出：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[(1,&quot;小明&quot;),(2,&quot;小张“),(3,&quot;小王&quot;),(4,&quot;小李&quot;)]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure><p>这是一个很基础的并行遍历<code>zip(x,y)</code>使得<strong>for循环可以并行地遍历完两个列表</strong>。不过为什么叫拉链呢？</p><p>因为它本身就是拉链啊！</p><h2 id="图解zip"><a href="#图解zip" class="headerlink" title="图解zip()"></a>图解zip()</h2><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210518014623799.png" alt="是不是醍醐灌顶"></p><p>别再以为<code>zip</code>函数是压缩了，真的一点关系都没有！</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210516205639785.png" alt="关注我们吧！"></p>]]></content:encoded>
+      
+      
+      <category domain="http://81.80.203.121/categories/Python/">Python</category>
+      
+      
+      
+      <comments>http://81.80.203.121/post/bGnanEwvCE0G8VBM.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://81.80.203.121/post/Untitled.html</link>
+      <guid>http://81.80.203.121/post/Untitled.html</guid>
+      <pubDate>Fri, 11 Jun 2021 05:47:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;hr&gt;
+&lt;p&gt;title: TensorFlow入门(一) - mnist手写数字识别(网络搭建)&lt;br&gt;date: 2017-12-09 11:51:24&lt;br&gt;description: TensorFlow 入门系列文章，mnist手写数字识别(网络搭建)。&lt;br&gt;tags</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<hr><p>title: TensorFlow入门(一) - mnist手写数字识别(网络搭建)<br>date: 2017-12-09 11:51:24<br>description: TensorFlow 入门系列文章，mnist手写数字识别(网络搭建)。<br>tags:</p><ul><li>机器学习</li><li>tensorflow</li><li>mnist</li><li>Python<br>nav:</li><li>TensorFlow<br>categories:</li><li>TensorFlow教程<br>top: 1<br>github: <a href="https://github.com/geektutu/tensorflow-tutorial-samples">https://github.com/geektutu/tensorflow-tutorial-samples</a><br>image: <a href="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png">https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png</a></li></ul><hr><p><strong>本文目录</strong></p><ul><li>案例数据</li><li>辅助列VLOOKUP方法</li><li>VLOOKUP数组公式方法</li><li>SUMIFS方法</li></ul><h2 id="案例数据"><a href="#案例数据" class="headerlink" title="案例数据"></a>案例数据</h2><h3 id="源数据表"><a href="#源数据表" class="headerlink" title="源数据表"></a>源数据表</h3><p>姓名和年级共同组成唯一ID，比如高一和高二年级都有张三，这时可以通过年级分别出到底是哪个张三</p><table><thead><tr><th>姓名</th><th>年级</th><th>成绩</th></tr></thead><tbody><tr><td>张三</td><td>高一</td><td>60</td></tr><tr><td>张前</td><td>高一</td><td>61</td></tr><tr><td>李四</td><td>高二</td><td>62</td></tr><tr><td>王五</td><td>高三</td><td>63</td></tr><tr><td>张三</td><td>高二</td><td>70</td></tr></tbody></table><h3 id="查询表"><a href="#查询表" class="headerlink" title="查询表"></a>查询表</h3><p>现在要依据姓名和年级从源数据表中查询成绩</p><table><thead><tr><th>姓名</th><th>年级</th><th>成绩</th></tr></thead><tbody><tr><td>张三</td><td>高一</td><td></td></tr><tr><td>李四</td><td>高二</td><td></td></tr><tr><td>张三</td><td>高三</td><td></td></tr><tr><td>李四</td><td>高一</td><td></td></tr></tbody></table><h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514025815874.png" alt="总览"></p><h2 id="辅助列VLOOKUP方法"><a href="#辅助列VLOOKUP方法" class="headerlink" title="辅助列VLOOKUP方法"></a>辅助列VLOOKUP方法</h2><p>辅助列的<code>VLOOKUP</code>查询方法很简单，其实就是把两列合并。然后用<code>VLOOKUP查询</code>就行了。结果如图</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png" alt="辅助列vlookup结果"></p><p>各单元格对应的公式如下。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A2<span class="comment">//源数据表建立辅助列</span></span><br><span class="line">=B2&amp;<span class="string">&quot;-&quot;</span>&amp;C2</span><br><span class="line">---</span><br><span class="line">F2<span class="comment">//查询表建立</span></span><br><span class="line">=G2&amp;<span class="string">&quot;-&quot;</span>&amp;H2</span><br><span class="line">---</span><br><span class="line">=VLOOKUP(F2,$A$<span class="number">2</span>:$D$<span class="number">6</span>,<span class="number">4</span>,<span class="number">0</span>) <span class="comment">// 使用vlookup公式对</span></span><br></pre></td></tr></table></figure><p><strong>知识点</strong></p><ul><li>&amp;符号表示“and”能够将两个单元格里的内容拼接到一个单元格中。</li></ul><h2 id="VLOOKUP数组公式方法"><a href="#VLOOKUP数组公式方法" class="headerlink" title="VLOOKUP数组公式方法"></a>VLOOKUP数组公式方法</h2><p><strong>数组公式的优势在于可以隐藏辅助列</strong>，如果你的表不仅要多列查询，还要注重排版美观以供打印，那么这个方法会帮到你。</p><p>我们先给出要用到的函数和最后的执行结果，然后一步步讲解发生了什么。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H2<span class="comment">// 最终的vlookup数组公式</span></span><br><span class="line">=VLOOKUP(F2&amp;G2,IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>),<span class="number">2</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170545341.png" alt="vlookup数组公式查询结果"></p><h3 id="F2-amp-G2"><a href="#F2-amp-G2" class="headerlink" title="F2&amp;G2"></a>F2&amp;G2</h3><p>这是<code>VLOOKUP</code>中的第一个函数，用来将查询表中的 姓名 和 年级 合并起来。</p><p>第二个参数的IF函数是个难点，想要知道它干了什么，我们需要先学习Excel中的数组概念。</p><h3 id="Excel中的数组对象"><a href="#Excel中的数组对象" class="headerlink" title="Excel中的数组对象"></a>Excel中的数组对象</h3><p>试着在单元格里输入下面这行内容</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>&#125; </span><br></pre></td></tr></table></figure><p>你会发现这串数字秒变一张表。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170253067.png" alt="数组{1,0,3}"></p><p>这其实是一个横向的数组，在Excel中数组可以把一堆元素合起来作为函数的数据来进行运算。</p><p>我们再做个实验。用IF函数来引用下表的D列和E列的内容，但只改变第一个用作判断条件的参数。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173644683.png" alt="IF实验的公式"></p><p>接下来看实验的结果。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173841584.png" alt="实验结果"></p><p>注意<code>=IF(&#123;1,0&#125;,D4,E4)</code>让我们同时得到了D和E列的两个内容。也就是说，<strong>我们得到了一个数组</strong>。</p><p>当数组传入函数时，这里IF函数其实对数组的内容，也就是1和0，分别进行了计算。结果为1时，我们得到D列的内容，结果为0时，得到E列的内容。最终得到了一个数组。</p><p>接下来我们就好理解<code>VLOOKUP</code>里的IF函数在干什么了。</p><h3 id="IF函数干了什么"><a href="#IF函数干了什么" class="headerlink" title="IF函数干了什么"></a>IF函数干了什么</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">= IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>) </span><br></pre></td></tr></table></figure><p>不妨先把这个函数放到单元格里看看会出什么内容。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514171443803.png" alt="IF函数得到了一张中间表"></p><p>这样就明白数组公式的原理了。</p><ol><li>我们用<code>$A$2:$A$6&amp;$B$2:$B$6</code>将源数据表的 姓名 和 年级 列拼接成一列。</li><li>IF函数使用<code>&#123;1,0&#125;</code>将拼好的列与要查询的数据组合成一张表。</li><li>将组合的新表传给VLOOKUP函数，让它从这里面找。</li><li>所以VLOOKUP的第一个参数为F2&amp;G2，并且第三个参数为2，因为这对应了中间表的第二列</li></ol><p>这里做了一个数组公式的查询流程。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514175435107.png" alt="数组公式查询流程"></p><h2 id="SUMIFS方法"><a href="#SUMIFS方法" class="headerlink" title="SUMIFS方法"></a>SUMIFS方法</h2><p>最后介绍一个最简单的方法，<code>sumifs</code>。<code>sumifs</code>函数可以实现多条件的求和。我们可以使用条件来匹配成绩，最终不让他相加，这样就可以得到查询结果不是吗。</p><p>用到的公式如下</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=SUMIFS($C$<span class="number">2</span>:$C$<span class="number">6</span>,$A$<span class="number">2</span>:$A$<span class="number">6</span>,F2,$B$<span class="number">2</span>:$B$<span class="number">6</span>,G2)</span><br></pre></td></tr></table></figure><p>也就是在C列（源数据的成绩）里按条件求和，这个条件是F列的内容等于A列的，<strong>且</strong>G列的内容等于B列的。</p><p>结果如图</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514180142441.png" alt="SUMIFS查询结果"></p><p>不过这里需要注意，用<code>SUMIFS</code>来进行查询，没有查询到会得到数字0。如果无和0是不同含义的话，这时就会产生混淆。</p><h2 id="本文缘起"><a href="#本文缘起" class="headerlink" title="本文缘起"></a>本文缘起</h2><p>回答群友问题</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514181048790.png" alt=""></p><blockquote><p>点击 阅读原文 可获得本文案例文件 提取码：4fau。</p></blockquote>]]></content:encoded>
+      
+      
+      <category domain="http://81.80.203.121/categories/Excel/">Excel</category>
+      
+      
+      
+      <comments>http://81.80.203.121/post/Untitled.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>TensorFlow入门(一) - mnist手写数字识别(网络搭建)</title>
+      <link>http://81.80.203.121/post/2017-12-09-TensorFlow%E5%85%A5%E9%97%A8(%E4%B8%80)---mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB(%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA).html</link>
+      <guid>http://81.80.203.121/post/2017-12-09-TensorFlow%E5%85%A5%E9%97%A8(%E4%B8%80)---mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB(%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA).html</guid>
+      <pubDate>Sat, 09 Dec 2017 03:51:24 GMT</pubDate>
+      
+      <description>TensorFlow 入门系列文章，mnist手写数字识别(网络搭建)。</description>
+      
+      
+      <enclosure url="http://81.80.203.121/https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png" type="image"/>
+      
+      
+      <content:encoded><![CDATA[<p><strong>本文目录</strong></p><ul><li>案例数据</li><li>辅助列VLOOKUP方法</li><li>VLOOKUP数组公式方法</li><li>SUMIFS方法</li></ul><h2 id="案例数据"><a href="#案例数据" class="headerlink" title="案例数据"></a>案例数据</h2><h3 id="源数据表"><a href="#源数据表" class="headerlink" title="源数据表"></a>源数据表</h3><p>姓名和年级共同组成唯一ID，比如高一和高二年级都有张三，这时可以通过年级分别出到底是哪个张三</p><table><thead><tr><th>姓名</th><th>年级</th><th>成绩</th></tr></thead><tbody><tr><td>张三</td><td>高一</td><td>60</td></tr><tr><td>张前</td><td>高一</td><td>61</td></tr><tr><td>李四</td><td>高二</td><td>62</td></tr><tr><td>王五</td><td>高三</td><td>63</td></tr><tr><td>张三</td><td>高二</td><td>70</td></tr></tbody></table><h3 id="查询表"><a href="#查询表" class="headerlink" title="查询表"></a>查询表</h3><p>现在要依据姓名和年级从源数据表中查询成绩</p><table><thead><tr><th>姓名</th><th>年级</th><th>成绩</th></tr></thead><tbody><tr><td>张三</td><td>高一</td><td></td></tr><tr><td>李四</td><td>高二</td><td></td></tr><tr><td>张三</td><td>高三</td><td></td></tr><tr><td>李四</td><td>高一</td><td></td></tr></tbody></table><h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514025815874.png" alt="总览"></p><h2 id="辅助列VLOOKUP方法"><a href="#辅助列VLOOKUP方法" class="headerlink" title="辅助列VLOOKUP方法"></a>辅助列VLOOKUP方法</h2><p>辅助列的<code>VLOOKUP</code>查询方法很简单，其实就是把两列合并。然后用<code>VLOOKUP查询</code>就行了。结果如图</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png" alt="辅助列vlookup结果"></p><p>各单元格对应的公式如下。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A2<span class="comment">//源数据表建立辅助列</span></span><br><span class="line">=B2&amp;<span class="string">&quot;-&quot;</span>&amp;C2</span><br><span class="line">---</span><br><span class="line">F2<span class="comment">//查询表建立</span></span><br><span class="line">=G2&amp;<span class="string">&quot;-&quot;</span>&amp;H2</span><br><span class="line">---</span><br><span class="line">=VLOOKUP(F2,$A$<span class="number">2</span>:$D$<span class="number">6</span>,<span class="number">4</span>,<span class="number">0</span>) <span class="comment">// 使用vlookup公式对</span></span><br></pre></td></tr></table></figure><p><strong>知识点</strong></p><ul><li>&amp;符号表示“and”能够将两个单元格里的内容拼接到一个单元格中。</li></ul><h2 id="VLOOKUP数组公式方法"><a href="#VLOOKUP数组公式方法" class="headerlink" title="VLOOKUP数组公式方法"></a>VLOOKUP数组公式方法</h2><p><strong>数组公式的优势在于可以隐藏辅助列</strong>，如果你的表不仅要多列查询，还要注重排版美观以供打印，那么这个方法会帮到你。</p><p>我们先给出要用到的函数和最后的执行结果，然后一步步讲解发生了什么。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H2<span class="comment">// 最终的vlookup数组公式</span></span><br><span class="line">=VLOOKUP(F2&amp;G2,IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>),<span class="number">2</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170545341.png" alt="vlookup数组公式查询结果"></p><h3 id="F2-amp-G2"><a href="#F2-amp-G2" class="headerlink" title="F2&amp;G2"></a>F2&amp;G2</h3><p>这是<code>VLOOKUP</code>中的第一个函数，用来将查询表中的 姓名 和 年级 合并起来。</p><p>第二个参数的IF函数是个难点，想要知道它干了什么，我们需要先学习Excel中的数组概念。</p><h3 id="Excel中的数组对象"><a href="#Excel中的数组对象" class="headerlink" title="Excel中的数组对象"></a>Excel中的数组对象</h3><p>试着在单元格里输入下面这行内容</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>&#125; </span><br></pre></td></tr></table></figure><p>你会发现这串数字秒变一张表。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170253067.png" alt="数组{1,0,3}"></p><p>这其实是一个横向的数组，在Excel中数组可以把一堆元素合起来作为函数的数据来进行运算。</p><p>我们再做个实验。用IF函数来引用下表的D列和E列的内容，但只改变第一个用作判断条件的参数。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173644683.png" alt="IF实验的公式"></p><p>接下来看实验的结果。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173841584.png" alt="实验结果"></p><p>注意<code>=IF(&#123;1,0&#125;,D4,E4)</code>让我们同时得到了D和E列的两个内容。也就是说，<strong>我们得到了一个数组</strong>。</p><p>当数组传入函数时，这里IF函数其实对数组的内容，也就是1和0，分别进行了计算。结果为1时，我们得到D列的内容，结果为0时，得到E列的内容。最终得到了一个数组。</p><p>接下来我们就好理解<code>VLOOKUP</code>里的IF函数在干什么了。</p><h3 id="IF函数干了什么"><a href="#IF函数干了什么" class="headerlink" title="IF函数干了什么"></a>IF函数干了什么</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">= IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>) </span><br></pre></td></tr></table></figure><p>不妨先把这个函数放到单元格里看看会出什么内容。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514171443803.png" alt="IF函数得到了一张中间表"></p><p>这样就明白数组公式的原理了。</p><ol><li>我们用<code>$A$2:$A$6&amp;$B$2:$B$6</code>将源数据表的 姓名 和 年级 列拼接成一列。</li><li>IF函数使用<code>&#123;1,0&#125;</code>将拼好的列与要查询的数据组合成一张表。</li><li>将组合的新表传给VLOOKUP函数，让它从这里面找。</li><li>所以VLOOKUP的第一个参数为F2&amp;G2，并且第三个参数为2，因为这对应了中间表的第二列</li></ol><p>这里做了一个数组公式的查询流程。</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514175435107.png" alt="数组公式查询流程"></p><h2 id="SUMIFS方法"><a href="#SUMIFS方法" class="headerlink" title="SUMIFS方法"></a>SUMIFS方法</h2><p>最后介绍一个最简单的方法，<code>sumifs</code>。<code>sumifs</code>函数可以实现多条件的求和。我们可以使用条件来匹配成绩，最终不让他相加，这样就可以得到查询结果不是吗。</p><p>用到的公式如下</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=SUMIFS($C$<span class="number">2</span>:$C$<span class="number">6</span>,$A$<span class="number">2</span>:$A$<span class="number">6</span>,F2,$B$<span class="number">2</span>:$B$<span class="number">6</span>,G2)</span><br></pre></td></tr></table></figure><p>也就是在C列（源数据的成绩）里按条件求和，这个条件是F列的内容等于A列的，<strong>且</strong>G列的内容等于B列的。</p><p>结果如图</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514180142441.png" alt="SUMIFS查询结果"></p><p>不过这里需要注意，用<code>SUMIFS</code>来进行查询，没有查询到会得到数字0。如果无和0是不同含义的话，这时就会产生混淆。</p><h2 id="本文缘起"><a href="#本文缘起" class="headerlink" title="本文缘起"></a>本文缘起</h2><p>回答群友问题</p><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514181048790.png" alt=""></p><blockquote><p>点击 阅读原文 可获得本文案例文件 提取码：4fau。</p></blockquote>]]></content:encoded>
+      
+      
+      <category domain="http://81.80.203.121/categories/TensorFlow%E6%95%99%E7%A8%8B/">TensorFlow教程</category>
+      
+      
+      <category domain="http://81.80.203.121/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</category>
+      
+      <category domain="http://81.80.203.121/tags/tensorflow/">tensorflow</category>
+      
+      <category domain="http://81.80.203.121/tags/mnist/">mnist</category>
+      
+      <category domain="http://81.80.203.121/tags/Python/">Python</category>
+      
+      
+      <comments>http://81.80.203.121/post/2017-12-09-TensorFlow%E5%85%A5%E9%97%A8(%E4%B8%80)---mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB(%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA).html#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/main.css" type="text/css" />
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  <meta name="baidu-site-verification" content="p7Pz3jlx4t" />
+  <meta name="google-site-verification" content="1" />
+  <meta name="msvalidate.01" content="1" />
+  <meta name="360-site-verification" content="1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- if page has tags, then add tags to keyword -->
+  
+  
+  <meta name="keywords" content="邓子琦,邓子琦的博客,邓子琦的小站,机器学习,tensorflow,mnist,Python,">
+  <!-- page.description has higher priority -->
+  <meta name="description" content="TensorFlow 入门系列文章，mnist手写数字识别(网络搭建)。">
+  <link rel="shortcut icon" href="/img/icon.png">
+  
+  <title>
+    
+    TensorFlow入门(一) - mnist手写数字识别(网络搭建) | 邓子琦|个人主页
+    
+  </title>
+
+  <link rel="canonical" href="http://81.80.203.121/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html">
+  
+<link rel="stylesheet" href="/css/geektutu.css">
+
+  <!-- global function -->
+  <script>
+    window.globalAddScript = function (url, onload, onerror) {
+      var s = document.createElement('script');
+      s.src = url;
+      onload && (s.onload = onload);
+      onerror && (s.onerror = onerror);
+      document.body.appendChild(s);
+    }
+    window.globalAddCss = function (url) {
+      var s = document.createElement('link');
+      s.rel = 'stylesheet';
+      s.href = url;
+      document.body.appendChild(s);
+    }
+    window.getPosition = function (ele) {
+      var x = 0, y = 0;
+      while (ele) {
+        x += (ele.offsetLeft - ele.scrollLeft + ele.clientLeft);
+        y += (ele.offsetTop - ele.scrollTop + ele.clientTop);
+        ele = ele.offsetParent;
+      }
+      return { x: x, y: y };
+    }
+    window.getDom = function (str) { return document.querySelector(str) }
+  </script>
+  <!-- google ad -->
+  
+  <script>
+    window.addEventListener('load', function () {
+      globalAddScript("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", "", function (e) {
+        if (window.localStorage.getItem('gkt_marker')) {
+          var rec = document.querySelector('.gkt-rec-links');
+          rec && (rec.style.display = 'none');
+        }
+      });
+    });
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-939225546",
+      enable_page_level_ads: true
+    });
+  </script>
+  
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/feed.xml" title="邓子琦|个人主页" type="application/rss+xml">
+</head>
+
+<body>
+    
+<header class="gkt-header col-xs-12 padding-0">
+    <div id="gkt-nav" class="gkt-header-container">
+        <a href="/" class="gkt-header-title float-left">
+            <img class="float-left" src="/img/icon.png" alt="">
+            <span>邓子琦|个人主页</span>
+        </a>
+        <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <nav class="gkt-header-nav text-right">
+            <ul>
+                <!-- <li>                
+                    <div class="search d6 float-middle hidden-xs hides-sm ">
+                        <form >
+                          <input type="text" style="color:white"  placeholder="搜索从这里开始...">
+                          <button  type="submit" style="color:white" ></button>
+                        </form>
+                      </div>
+                </li> -->
+                <li><div class="toggle popup-trigger">
+                    <i class="fa fa-search fa-fw fa-lg" style="color:white"></i>
+                  </div></li>
+                  <script type="text/javascript" src="/js/local-search.js"></script>
+                <li><a class="hidden-xs" href="/feed.xml">订阅</a></li>
+                <li><a href="/series/">专题</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/post/link.html">友链</a></li>
+                <li><a href="/post/about.html">关于</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="gkt-cate-nav" class="gkt-header-container hidden-xs">
+        
+        <nav class="gkt-header-nav float-left">
+            <ul>
+                
+                
+                <li class="gkt-cate-name float-left active">
+                    <a class="float-left" href="/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html">TensorFlow</a>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/Untitled.html">Excel</a>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/bGnanEwvCE0G8VBM.html">Python</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="gkt-header-placeholder" style="height: 44px"></div>
+<div class="gkt-header-placeholder hidden-xs" style="height: 44px"></div>
+<script>
+    (function () {
+        window.addEventListener('scroll', function () {
+            if (window.innerWidth < 768) {
+                return;
+            }
+            var nav = document.querySelector('#gkt-nav');
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop > 50 && (nav.classList.add('hide'));
+            scrollTop <= 50 && (nav.classList.remove('hide'));
+        });
+        var cateNavs = document.querySelectorAll('#gkt-cate-nav>nav>ul>li');
+        [].slice.call(cateNavs).forEach(function (item) {
+            var sub = item.querySelector('.gkt-sub-cate');
+            if (!sub) return;
+            item.addEventListener('mouseenter', function (e) { sub.style.display = 'block'; }, false);
+            item.addEventListener('mouseleave', function (e) { sub.style.display = 'none'; }, false);
+        })
+    })();
+</script>
+<div class="search-pop-overlay" index="999999">
+    <div class="popup search-popup" style="background-color: white;">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div id="search-result"><div id="no-result"><i class="fa fa-search fa-5x"></i></div></div>
+    </div>
+  </div>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Main Content -->
+<main class="col-xs-12 padding-0 markdown-it">
+    <!-- Post Container -->
+    
+    
+    <!-- Post Content -->
+<div class="float-left post-container box-shadow">
+    <div class="u-arrow-wrapper hidden-xs">
+        
+        
+        <a class="float-right" href="/post/Untitled.html"><i class="u-arrow-right"></i></a>
+        
+    </div>
+    <article class="col-xs-12">
+        <h1> TensorFlow入门(一) - mnist手写数字识别(网络搭建) </h1>
+        
+        
+        <div class="hidden-lg hidden-md series_links">
+            <p> <strong> TensorFlow教程系列文章链接：</strong></p>
+            <ul>
+                
+                <li>
+                    <a href="/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html">TensorFlow入门(一) - mnist手写数字识别(网络搭建)</a>
+                    <span class="post-item-date">(Dec 9, 2017)</span>
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        <blockquote>
+            <p>源代码/数据集已上传到
+                <a href="https://github.com/geektutu/tensorflow-tutorial-samples" target="_blank" rel="noopener">Github - tensorflow-tutorial-samples</a>
+            </p>
+        </blockquote>
+        
+        <div class="gkt-article-start"></div>
+        <p><strong>本文目录</strong></p>
+<ul>
+<li>案例数据</li>
+<li>辅助列VLOOKUP方法</li>
+<li>VLOOKUP数组公式方法</li>
+<li>SUMIFS方法</li>
+</ul>
+<h2 id="案例数据"><a href="#案例数据" class="headerlink" title="案例数据"></a>案例数据</h2><h3 id="源数据表"><a href="#源数据表" class="headerlink" title="源数据表"></a>源数据表</h3><p>姓名和年级共同组成唯一ID，比如高一和高二年级都有张三，这时可以通过年级分别出到底是哪个张三</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年级</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>高一</td>
+<td>60</td>
+</tr>
+<tr>
+<td>张前</td>
+<td>高一</td>
+<td>61</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>高二</td>
+<td>62</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>高三</td>
+<td>63</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>高二</td>
+<td>70</td>
+</tr>
+</tbody></table>
+<h3 id="查询表"><a href="#查询表" class="headerlink" title="查询表"></a>查询表</h3><p>现在要依据姓名和年级从源数据表中查询成绩</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年级</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>高一</td>
+<td></td>
+</tr>
+<tr>
+<td>李四</td>
+<td>高二</td>
+<td></td>
+</tr>
+<tr>
+<td>张三</td>
+<td>高三</td>
+<td></td>
+</tr>
+<tr>
+<td>李四</td>
+<td>高一</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514025815874.png" alt="总览"></p>
+<h2 id="辅助列VLOOKUP方法"><a href="#辅助列VLOOKUP方法" class="headerlink" title="辅助列VLOOKUP方法"></a>辅助列VLOOKUP方法</h2><p>辅助列的<code>VLOOKUP</code>查询方法很简单，其实就是把两列合并。然后用<code>VLOOKUP查询</code>就行了。结果如图</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png" alt="辅助列vlookup结果"></p>
+<p>各单元格对应的公式如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A2		<span class="comment">//源数据表建立辅助列</span></span><br><span class="line">=B2&amp;<span class="string">&quot;-&quot;</span>&amp;C2</span><br><span class="line">---</span><br><span class="line">F2		<span class="comment">//查询表建立</span></span><br><span class="line">=G2&amp;<span class="string">&quot;-&quot;</span>&amp;H2</span><br><span class="line">---</span><br><span class="line">=VLOOKUP(F2,$A$<span class="number">2</span>:$D$<span class="number">6</span>,<span class="number">4</span>,<span class="number">0</span>) <span class="comment">// 使用vlookup公式对</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>知识点</strong></p>
+<ul>
+<li>&amp;符号表示“and”能够将两个单元格里的内容拼接到一个单元格中。</li>
+</ul>
+<h2 id="VLOOKUP数组公式方法"><a href="#VLOOKUP数组公式方法" class="headerlink" title="VLOOKUP数组公式方法"></a>VLOOKUP数组公式方法</h2><p><strong>数组公式的优势在于可以隐藏辅助列</strong>，如果你的表不仅要多列查询，还要注重排版美观以供打印，那么这个方法会帮到你。</p>
+<p>我们先给出要用到的函数和最后的执行结果，然后一步步讲解发生了什么。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H2		<span class="comment">// 最终的vlookup数组公式</span></span><br><span class="line">=VLOOKUP(F2&amp;G2,IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>),<span class="number">2</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170545341.png" alt="vlookup数组公式查询结果"></p>
+<h3 id="F2-amp-G2"><a href="#F2-amp-G2" class="headerlink" title="F2&amp;G2"></a>F2&amp;G2</h3><p>这是<code>VLOOKUP</code>中的第一个函数，用来将查询表中的 姓名 和 年级 合并起来。</p>
+<p>第二个参数的IF函数是个难点，想要知道它干了什么，我们需要先学习Excel中的数组概念。</p>
+<h3 id="Excel中的数组对象"><a href="#Excel中的数组对象" class="headerlink" title="Excel中的数组对象"></a>Excel中的数组对象</h3><p>试着在单元格里输入下面这行内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>&#125; </span><br></pre></td></tr></table></figure>
+
+<p>你会发现这串数字秒变一张表。</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514170253067.png" alt="数组{1,0,3}"></p>
+<p>这其实是一个横向的数组，在Excel中数组可以把一堆元素合起来作为函数的数据来进行运算。</p>
+<p>我们再做个实验。用IF函数来引用下表的D列和E列的内容，但只改变第一个用作判断条件的参数。</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173644683.png" alt="IF实验的公式"></p>
+<p>接下来看实验的结果。</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514173841584.png" alt="实验结果"></p>
+<p>注意<code>=IF(&#123;1,0&#125;,D4,E4)</code>让我们同时得到了D和E列的两个内容。也就是说，<strong>我们得到了一个数组</strong>。</p>
+<p>当数组传入函数时，这里IF函数其实对数组的内容，也就是1和0，分别进行了计算。结果为1时，我们得到D列的内容，结果为0时，得到E列的内容。最终得到了一个数组。</p>
+<p>接下来我们就好理解<code>VLOOKUP</code>里的IF函数在干什么了。</p>
+<h3 id="IF函数干了什么"><a href="#IF函数干了什么" class="headerlink" title="IF函数干了什么"></a>IF函数干了什么</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">= IF(&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,$A$<span class="number">2</span>:$A$<span class="number">6</span>&amp;$B$<span class="number">2</span>:$B$<span class="number">6</span>,$C$<span class="number">2</span>:$C$<span class="number">6</span>) </span><br></pre></td></tr></table></figure>
+
+<p>不妨先把这个函数放到单元格里看看会出什么内容。</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514171443803.png" alt="IF函数得到了一张中间表"></p>
+<p>这样就明白数组公式的原理了。</p>
+<ol>
+<li>我们用<code>$A$2:$A$6&amp;$B$2:$B$6</code>将源数据表的 姓名 和 年级 列拼接成一列。</li>
+<li>IF函数使用<code>&#123;1,0&#125;</code>将拼好的列与要查询的数据组合成一张表。</li>
+<li>将组合的新表传给VLOOKUP函数，让它从这里面找。</li>
+<li>所以VLOOKUP的第一个参数为F2&amp;G2，并且第三个参数为2，因为这对应了中间表的第二列</li>
+</ol>
+<p>这里做了一个数组公式的查询流程。</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514175435107.png" alt="数组公式查询流程"></p>
+<h2 id="SUMIFS方法"><a href="#SUMIFS方法" class="headerlink" title="SUMIFS方法"></a>SUMIFS方法</h2><p>最后介绍一个最简单的方法，<code>sumifs</code>。<code>sumifs</code>函数可以实现多条件的求和。我们可以使用条件来匹配成绩，最终不让他相加，这样就可以得到查询结果不是吗。</p>
+<p>用到的公式如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=SUMIFS($C$<span class="number">2</span>:$C$<span class="number">6</span>,$A$<span class="number">2</span>:$A$<span class="number">6</span>,F2,$B$<span class="number">2</span>:$B$<span class="number">6</span>,G2)</span><br></pre></td></tr></table></figure>
+
+<p>也就是在C列（源数据的成绩）里按条件求和，这个条件是F列的内容等于A列的，<strong>且</strong>G列的内容等于B列的。</p>
+<p>结果如图</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514180142441.png" alt="SUMIFS查询结果"></p>
+<p>不过这里需要注意，用<code>SUMIFS</code>来进行查询，没有查询到会得到数字0。如果无和0是不同含义的话，这时就会产生混淆。</p>
+<h2 id="本文缘起"><a href="#本文缘起" class="headerlink" title="本文缘起"></a>本文缘起</h2><p>回答群友问题</p>
+<p><img src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514181048790.png" alt=""></p>
+<blockquote>
+<p>点击 阅读原文 可获得本文案例文件 提取码：4fau。</p>
+</blockquote>
+
+        
+<script src="/js/qrious.min.js"></script>
+
+
+        <hr style="margin-top: 2rem;">
+        <div>
+            
+            <p>
+                <span>专题: </span>
+                
+                <a href="/series/#TensorFlow教程">
+                    <code key="TensorFlow教程" class="post-label">TensorFlow教程</code>
+                </a>
+                
+            </p>
+            
+            <p>
+                <span>本文发表于 2017-12-09，最后修改于 2021-06-11。</span>
+            </p>
+            <!-- 文章末尾的提示 start -->
+            
+            <p>
+                本站永久域名「 <a
+                        href="/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html">81.80.203.121</a>
+                    」，也可搜索「 邓子琦|个人主页 」找到我。
+            </p>
+            
+            
+                
+            <!-- 文章末尾的提示 end -->
+        </div>
+        <hr />
+        <p name="pagination" style="font-size: 1.2em">
+    
+    
+    <a class="float-right" href="/post/Untitled.html">下一篇 » </a>
+    
+</p>
+    </article>
+    <!-- 赞赏 -->
+    <!--打赏-->
+
+<style>
+    #reward .reward-btn-wrapper {
+        width: 100px;
+        padding-top: 35px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    #reward .reward-btn {
+        padding: 2px 15px;
+        color: #fff;
+        background-color: #ea6f5a;
+        border-radius: 20px;
+    }
+
+    #reward .reward-code {
+        position: absolute;
+        top: -220px;
+        left: 50%;
+        display: none;
+        width: 360px;
+        height: 240px;
+        margin-left: -180px;
+        padding: 15px 20px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        box-shadow: 0 1px 1px 1px #efefef;
+    }
+
+    #reward .reward-code:after,
+    #reward .reward-code:before {
+        position: absolute;
+        content: '';
+        border: 10px solid transparent
+    }
+
+    #reward .reward-code:after {
+        bottom: -19px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #fff
+    }
+
+    #reward .reward-code:before {
+        bottom: -20px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #e6e6e6
+    }
+
+    #reward .qr-code {
+        width: 50%;
+        float: left;
+        padding: 5px;
+    }
+
+    #reward .qr-code p {
+        margin-top: -6px;
+    }
+
+    #reward img {
+        transform: none;
+        -webkit-transform: none;
+        margin-left: 0;
+    }
+
+    #reward img[alt='i'] {
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+        position: absolute;
+        margin: 65px 0 0 65px;
+    }
+
+    #reward img[alt="ali"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #0f9be0;
+    }
+
+    #reward img[alt="wechat"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #3db034;
+    }
+
+    #reward .reward-tip {
+        font-size: 1.2em;
+        margin-bottom: 0;
+        color: #ea6f5a;
+    }
+</style>
+<div id="reward" class="col-xs-12">
+    <div class="reward-btn-wrapper">
+        <div class="reward-btn text-center">赞赏支持</div>
+    </div>
+    <div class="reward-code text-center">
+        <p class="text-center reward-tip"><strong>请我吃胡萝卜 =^_^= </strong></p>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-ali" src="" alt="ali">
+            <p><small>支付宝</small></p>
+        </div>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-wechat" src="" alt="wechat">
+            <p><small>微信</small></p>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window, document) {
+        var aliQr = new QRious({ value: 'https://qr.alipay.com/fkx13484fvyoa79ccfl3rff' });
+        var wechatQr = new QRious({ value: 'wxp://f2f0PvPJTm-LrLhwbUZ67t4QSyh-R-IO5tW3aicP7RSnfh4=' });
+        document.querySelector('#reward-ali').src = aliQr.toDataURL();
+        document.querySelector('#reward-wechat').src = wechatQr.toDataURL();
+
+        var rewardBtn = document.querySelector('#reward .reward-btn-wrapper');
+        var qrCode = document.querySelector('#reward .reward-code')
+        var activeFunc = function (e) {
+            qrCode.style.display = 'block';
+        }
+        var hideFunc = function (e) {
+            qrCode.style.display = 'none';
+        }
+
+        rewardBtn.addEventListener('mouseenter', activeFunc, false)
+        rewardBtn.addEventListener('mouseover', activeFunc, false)
+        rewardBtn.addEventListener('mouseleave', hideFunc, false)
+        qrCode.addEventListener('mouseenter', activeFunc, false)
+        qrCode.addEventListener('mouseover', activeFunc, false)
+        qrCode.addEventListener('mouseleave', hideFunc, false)
+    })(window, document);
+</script>
+
+    
+<div class="col-xs-12 text-center" style="margin-top: 30px;">
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://github.com/XiaoMaiBuShuJi" title=""><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/github.png" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://www.zhihu.com/people/deng-zi-qi-37-9/columns" title=""><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/zhihu.png" /></a>
+    
+    <a style="display:inline-block;" href="mailto:邓子琦&lt;993396365@qq.com&gt;?subject=来自邓子琦的个人主页" title=""><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/email.png" /></a>
+    
+</div>
+
+    <!-- 推荐阅读三篇文章 -->
+    <div class="col-xs-12">
+        <h3>推荐阅读</h3>
+        
+        <div class="post-preview">
+    <div class="post-img" style="background-image: url('')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+                
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#友链"
+                    title="友链">友链</a>
+                <span>/</span>
+                
+                
+            </div>
+            <a href="/post/link.html" class="title">
+                友链
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2021-06-12，</span>
+                    <span class="hidden-xs">全文96字，</span>
+                    <span>阅读约1分钟</span>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+        
+        <div class="post-preview">
+    <div class="post-img" style="background-image: url('')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+                
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#关于我"
+                    title="关于我">关于我</a>
+                <span>/</span>
+                
+                
+            </div>
+            <a href="/post/about.html" class="title">
+                关于我
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2021-06-12，</span>
+                    <span class="hidden-xs">全文116字，</span>
+                    <span>阅读约1分钟</span>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+        
+        <div class="post-preview">
+    <div class="post-img" style="background-image: url('https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/image-20210514030546893.png')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+                
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#机器学习"
+                    title="机器学习">机器学习</a>
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#tensorflow"
+                    title="tensorflow">tensorflow</a>
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#mnist"
+                    title="mnist">mnist</a>
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#Python"
+                    title="Python">Python</a>
+                <span>/</span>
+                
+                
+            </div>
+            <a href="/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html" class="title">
+                TensorFlow入门(一) - mnist手写数字识别(网络搭建)
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2017-12-09，</span>
+                    <span class="hidden-xs">全文3271字，</span>
+                    <span>阅读约11分钟</span>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+        
+    </div>
+    <div class="col-xs-12">
+        <!-- 标签列表 -->
+        <!-- Featured Tags -->
+<style>
+    #featured-tag .post-tag-item {
+        font-size: 12px;
+        line-height: 30px;
+        display: inline-block;
+        height: 30px;
+        margin: 5px 0px;
+        padding: 0 7px;
+        color: #333;
+        border-radius: 15px;
+        background: #f6f6f6;
+    }
+
+    #featured-tag .post-tag-item:hover {
+        color: #337ab7;
+    }
+</style>
+<div id="featured-tag">
+    
+    <a class="post-tag-item" href="/tags/#机器学习" title="机器学习"
+        rel="1">#机器学习 (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#tensorflow" title="tensorflow"
+        rel="1">#tensorflow (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#mnist" title="mnist"
+        rel="1">#mnist (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#Python" title="Python"
+        rel="1">#Python (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#关于我" title="关于我"
+        rel="1">#关于我 (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#友链" title="友链"
+        rel="1">#友链 (1) </a>
+    
+</div>
+    </div>
+    <!-- 评论 -->
+    
+    <div class="col-xs-12">
+        
+<div class="col-xs-12 padding-0">
+    <div id="gitalk-container">
+        <div class="gt-container text-center" style="margin-top: 50px;">
+            <button class="gt-btn gt-btn-public"><span class="gt-btn-text">去 Github 评论</span></button>
+        </div>
+    </div>
+    <div id="gitalk-related"></div>
+</div>
+
+<link rel="stylesheet" href="/css/gitalk.css">
+
+
+<script src="/js/gitalk.min.js"></script>
+
+<script>
+    window.addEventListener('load', function () {
+        function renderCommentUrl(data) {
+            var url = (data[window.location.pathname] || {}).url
+            url && getDom('#gitalk-container button').addEventListener('click', function (e) { window.open(url)})
+            url || (getDom('#gitalk-container').style.display = 'none')
+        }
+        const gitalk = new Gitalk({
+            clientID: 'c1fdd456a4caae5f7df0',
+            clientSecret: 'b2674451e21feae50520f99337ec15d2aebe7879',
+            accessToken: 'xxxx',
+            repo: 'hexo-theme-geektutu',
+            owner: 'geektutu',
+            admin: ['geektutu'],
+            id: window.location.pathname,
+            distractionFreeMode: false
+        });
+        fetch("https://api.github.com/user").then(function(resp){
+            gitalk.render('gitalk-container');
+        }).catch(function(e){
+            fetch('/tool/issues.json').then(function (r) { return r.json() }).then(renderCommentUrl).catch(function (e) { })
+        })
+        getDom('#gitalk-container').addEventListener('click', function (e) {
+            e && e.stopPropagation && e.stopPropagation();
+        });
+    })
+</script>
+<script>
+    window.addEventListener('load', function () {
+        function render(comments) {
+            var template = '<a href="${comment.url}?utm_source=gitalk" class="dis-item-url"><h3 class="dis-item-title">${comment.title}</h3>' +
+                '<p class="dis-item-des">${comment.count} 评论 ● ${comment.date}</p>' +
+                '<div class="dis-item-content"><img class="dis-item-img" src="${comment.icon}" alt="icon"><p><b><span class="dis-item-user">${comment.user}</span></b>&nbsp;——&nbsp;${comment.body}</p></div>' +
+                '</a>'
+
+            var wrapper = getDom('#gitalk-related');
+            comments = shuffle(comments);
+            comments.slice(0, 4).forEach(function (c) {
+                var div = document.createElement('div');
+                div.classList.add('dis-item');
+                div.innerHTML = template.replace("${comment.url}", c.url)
+                    .replace("${comment.title}", c.title)
+                    .replace("${comment.count}", c.count)
+                    .replace("${comment.date}", c.date)
+                    .replace("${comment.icon}", c.icon)
+                    .replace("${comment.user}", c.user)
+                    .replace("${comment.body}", c.body)
+                wrapper.appendChild(div)
+            })
+            var p = document.createElement('p')
+            p.innerHTML = '<a target="_blank" rel="noopener" href="https://geektutu.com/post/blog-experience-7.html">Gitalk Plus</a>';
+            p.classList.add('dis-divide');
+            wrapper.appendChild(p);
+            wrapper.classList.add('dis-wrapper')
+        }
+        function shuffle(a) {
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        fetch('/tool/comments.json').then(function (r) { return r.json() }).then(render).catch(function (e) { })
+    })
+</script>
+
+    </div>
+    
+</div>
+<aside class="float-left gkt-sidebar hidden-xs hidden-sm">
+    <div style="clear: both"></div>
+    <div class="gkt-sidebar-wrapper">
+        <section class="box-shadow"><style>
+    .gkt-summary {
+        border: 1px solid #DDDDDD;
+        border-radius: 3px;
+        padding: 5px;
+        width: 100%;
+    }
+
+
+    .gkt-summary nav {
+        overflow: hidden;
+    }
+
+    .gkt-summary nav a {
+        display: inline-block;
+        text-align: center;
+        color: #333;
+        font-size: 12px;
+    }
+
+    .gkt-summary nav span {
+        display: block;
+    }
+
+    .gkt-summary nav .middle {
+        border-left: 1px solid #eaecef;
+        border-right: 1px solid #eaecef;
+    }
+
+    .gkt-summary .number {
+        font-weight: bold;
+    }
+
+    .gkt-summary .link-list {
+        margin-top: 5px;
+        margin-bottom: -5px;
+        padding-top: 7px;
+        border-top: 1px dashed #999;
+        display: flex;
+    }
+
+    .gkt-summary .link-list a {
+        flex: 1;
+    }
+
+    .gkt-summary .link-list img {
+        width: 25px;
+        height: 25px;
+    }
+</style>
+
+<div class="gkt-summary">
+    <nav>
+        <a href="/" class="col-xs-4">
+            <span class="number">5</span><span>文章</span>
+        </a>
+        <a href="/series" class="col-xs-4 middle">
+            <span class="number">3</span><span>专题</span>
+        </a>
+        <a href="/tags" class="col-xs-4">
+            <span class="number">6</span><span>标签</span>
+        </a>
+    </nav>
+
+    
+    <div class="link-list">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/XiaoMaiBuShuJi"><img src="/img/related_links/github.png" /></a>
+        
+        <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/deng-zi-qi-37-9/columns"><img src="/img/related_links/zhihu.png" /></a>
+        
+        <a href="mailto:邓子琦&lt;993396365@qq.com&gt;?subject=来自邓子琦的个人主页"><img src="/img/related_links/email.png" /></a>
+        
+    </div>
+    
+</div></section>
+        
+        
+        <section class="gkt-sidebar-content box-shadow">
+            <strong>TensorFlow教程</strong>
+            <ul>
+                
+                <li>
+                    <a href="/post/2017-12-09-TensorFlow入门(一)---mnist手写数字识别(网络搭建).html"
+                        class="gkt-sidebar-active">mnist手写数字识别(网络搭建)</a>
+                    
+                    <!-- Table of Contents -->
+<div id="sidebar-toc">
+  <!-- TOC  -->
+  
+  
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%A1%88%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="toc-nav-text">案例数据</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%BE%85%E5%8A%A9%E5%88%97VLOOKUP%E6%96%B9%E6%B3%95"><span class="toc-nav-text">辅助列VLOOKUP方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#VLOOKUP%E6%95%B0%E7%BB%84%E5%85%AC%E5%BC%8F%E6%96%B9%E6%B3%95"><span class="toc-nav-text">VLOOKUP数组公式方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#SUMIFS%E6%96%B9%E6%B3%95"><span class="toc-nav-text">SUMIFS方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%9C%AC%E6%96%87%E7%BC%98%E8%B5%B7"><span class="toc-nav-text">本文缘起</span></a></li></ol>
+  
+</div>
+
+<script>
+  (function () {
+    var h2 = document.querySelectorAll('article h2');
+    var h3 = document.querySelectorAll('article h3');
+    var linkList = document.querySelectorAll('#sidebar-toc a');
+
+    function findLinkElement(name) {
+      for (var i = 0; i < linkList.length; i++) {
+        var items = linkList[i].href.split('#');
+        if (items && items[items.length - 1] === encodeURIComponent(name)) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function activeLink(titleList) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      for (var i = titleList.length - 1; i >= 0; i--) {
+        if (scrollTop - titleList[i].offsetTop > 0) {
+          var index = findLinkElement(titleList[i].id);
+          index != -1 && linkList[index].classList.add('gkt-sidebar-active');
+          break;
+        }
+      }
+    }
+
+    window.addEventListener("scroll", function (e) {
+      [].slice.call(linkList).forEach(function (link) {
+        link.classList.remove('gkt-sidebar-active');
+      })
+      activeLink(h2);
+    })
+  })();
+</script>
+                    
+                </li>
+                
+            </ul>
+        </section>
+        
+        
+        <section class="gkt-sidebar-content box-shadow">
+            <strong>最近的文章</strong>
+            <ul>
+                
+                <li>
+                    <a href="/post/link.html">友链</a>
+                </li>
+                
+                <li>
+                    <a href="/post/about.html">关于我</a>
+                </li>
+                
+                <li>
+                    <a href="/post/bGnanEwvCE0G8VBM.html">测试文章</a>
+                </li>
+                
+            </ul>
+        </section>
+        
+		<section class="gkt-sidebar-content box-shadow">
+		<img class="float-left" src="https://mypic-1302242504.cos.ap-nanjing.myqcloud.com/wxsm2.png">
+		</section>
+    </div>
+</aside>
+
+<script>
+    (function () {
+        function resizeUArrow() {
+            var s = getDom('.u-arrow-wrapper').style
+            var pc = getDom('.post-container')
+            s.left = getPosition(pc).x + 'px';
+            s.width = pc.clientWidth + 'px';
+        }
+        resizeUArrow()
+        window.addEventListener('resize', resizeUArrow);
+    })();
+</script>
+
+    
+
+<script>
+    (function () {
+        var ele = getDom('.gkt-sidebar-content')
+        if(!ele) return;
+        var wrapper = getDom('.gkt-sidebar-wrapper')
+        var last = 0
+        ele.style.maxHeight = ((window.innerHeight || 798) - 200) + 'px'
+        var f = function (e) {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var isDown = scrollTop > last;
+            var pos = getPosition(ele).y - scrollTop;
+            var downLimit = 50;
+            var upLimit = -100;
+            // uarrow.style.marginTop = scrollTop + 'px';
+            isDown && pos <= downLimit && wrapper.classList.add("gkt-sidebar-fixed");
+            !isDown && pos > upLimit && wrapper.classList.remove("gkt-sidebar-fixed");
+            last = scrollTop
+        }
+        f()
+        window.addEventListener("scroll", f)
+    })();
+</script>
+
+</main>
+    </div>
+    <style>
+    img#go-top {
+        position: fixed;
+        bottom: 100px;
+        width: 50px;
+        cursor: pointer;
+        z-index: 9999;
+    }
+</style>
+<img id="go-top" src="/icon/top.png" class="hidden-xs" style="display: none" />
+<script>
+    (function () {
+        var goTop = document.getElementById('go-top');
+        var mainContainer = document.querySelector('.main-container');
+        
+        goTop.addEventListener('click', function () {
+            window.scroll(0, 0);
+        }, false);
+        window.addEventListener('scroll', function () {
+            var right = document.body.offsetWidth - mainContainer.getBoundingClientRect().right;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            goTop.style.right = right + 10 + 'px'
+            scrollTop > 700 && (goTop.style.display = "block");
+            scrollTop <= 700 && (goTop.style.display = "none");
+        });
+    })();
+</script>
+    <style>
+    #geektutu-click-img-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        z-index: 9999;
+    }
+
+    #geektutu-click-img-container img {
+        object-fit: contain;
+        background: #eaecef;
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        width: auto;
+        vertical-align: middle;
+    }
+</style>
+
+
+<div id="geektutu-click-img-container">
+    <img src="" alt="Big Image">
+</div>
+
+<script>
+    (function () {
+        var container = document.querySelector('#geektutu-click-img-container')
+        var targetImg = container.querySelector('img')
+        var imgs = document.querySelectorAll('article img');
+        targetImg.addEventListener('click', function (e) {
+            container.style.display = 'none';
+            e && e.stopPropagation && e.stopPropagation();
+        }, false);
+
+        for (var i = 0; i < imgs.length; ++i) {
+            var img = imgs[i];
+            img.addEventListener('click', (function (src, rate) {
+                return function (e) {
+                    e && e.stopPropagation && e.stopPropagation();
+                    if (window.innerWidth < 980) {
+                        return
+                    }
+                    targetImg.style.height = targetImg.style.width = 'auto';
+                    if (window.innerWidth / window.innerHeight > rate) {
+                        targetImg.style.height = (window.innerHeight - 20) + 'px';
+                    } else {
+                        targetImg.style.width = (window.innerWidth - 20) + 'px';
+                    }
+                    container.style.height = window.innerHeight + 'px'
+                    container.style.lineHeight = window.innerHeight + 'px'
+                    container.style.display = 'block';
+                    targetImg.src = src;
+                };
+            }(img.src, img.width / img.height)), false)
+        }
+    })();
+</script>
+    <!-- Footer -->
+    <!-- Footer -->
+<style>
+    footer {
+        width: 100%;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    footer a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-hexo img {
+        height: 20px;
+        margin-bottom: -5px;
+    }
+
+    .footer-hexo a {
+        color: #337ab7;
+    }
+</style>
+<footer class="text-center col-xs-12">
+    <p>
+        <small>© 2021 - 小卖部书记 - </small>
+        <small>
+            <a target="_blank" rel="nofollow noopener" href="http://beian.miit.gov.cn/">正在备案</a>
+        </small>
+    </p>
+    <p class="footer-hexo">
+        <!-- 但若直接使用或修改主题，请务必保留这段声明 -->
+        <small>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme
+            <a target="_blank" href="https://geektutu.com">Geektutu</a>
+            <a target="_blank" rel="noopener" href="https://github.com/geektutu/hexo-theme-geektutu">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIACIAUAMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQQFBwIDBgj/2gAIAQEAAAAA9KrHSgAYL5/z6zZGuJd12uugbhq3uKtmuRtix20IS7lTLAfAAAn/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oACAECEAAAAAAB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAxAAAAAAAf/EADEQAAICAQIEBQEGBwAAAAAAAAECAwQFAAYREhORBxQhUlQxQVFic5KxJDJCYYGC0f/aAAgBAQABPwCFHnjWUzuvN6hV4cANSRLGjO9yRVUcSzMoA7jVXJYe5N0a2dhmk9kc0bN2GvLN8mbuNeWb5M3ca8s3yZu415Y/Jm7jXlm+TN3H/NeVPyZu40vOk3TZywK8wJ+v3EHVM/wsI/Dq2lrxN3Nnca16eti8chSAIoMbzByhMwP14kHVfwIiSaF5c96J6kwwCOTnHsYk8uvCrdmQy1TI4rJuz3cZLyGR/wCd4+YoOf8AEpUjXitubLYPG4paFsUxcuiGe7yc5gTW3LW44szXmobsi3Dhmic2+Z4+vCVH9CpraPiQ+QvbgTJrPFBWd5YpWrmNIIEXiRO32Pqt4p7cnfHk18lFBdmEVW1LVdIZGOrniTt6plrWKaO69yCykDRxwF+LMAewB0Txtr+Sf31VI8tEPw62fZt7N3Humtbpzz13ucX6CGSWMSuzpLyD1eNgeUka3PuvHbaxq3biTMHfkiSNCS78CwU+3Xg7Vu3MhuTcU6cq3Zemn3Eh2dv8Lzcut+29x1atKbHYqLJUhLwyNMwiZ3j9yDWOxUOV3tgb+3No5LDx1pi9+aeIwRlNY6bc+Jv+IFGrhLxtXJZ7VKcw81diiAAEn0JOrkWZyNfbEr0tz27UGQgkuGzXdIIvyowq99bRxk9ffO/L81SZBPZgEEroQroIxxMZOgeNsfkn99QypHGqO4Vl9CDrN4LDZkwyzyyQ2IgRHZrzGCZVP1XnQglT9oOtw4LC7iqV6uRkZoYpxKFSQpzFRw4EjVRMfSrQ1qqwxQxKFjjTgFUD7BoWYR6iVe+mtxt9Zwf9teaj4AdccPu5tedX5A/VrzUR+sy/q1CwksF19VEfDj/cnQRW+qg66cfsXtrpx+xe2unH7F7a6cfsXtrpx+xe2unH7F7a6cfsXtoxx+xe2gAAOA1//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+                    alt="Github Star">
+            </a>
+        </small>
+    </p>
+    
+    <p>
+        <small>
+            <span id="busuanzi_container_site_pv">👁<span id="busuanzi_value_site_pv"></span></span> &nbsp;
+            <span id="busuanzi_container_page_pv">📚<span id="busuanzi_value_page_pv"></span></span>
+        </small>
+    </p>
+    
+    
+    <p><small><span id="cnzz_stat_icon_123649"></span></small></p>
+    
+
+</footer>
+
+
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
+    })
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    window.addEventListener('load', function () {
+        var _hmt = _hmt || [];
+        globalAddScript('//hm.baidu.com/hm.js?1a0ec33b1aa')
+    })
+</script>
+
+
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//s23.cnzz.com/z_stat.php?id=123649&online=2');
+    })
+</script>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-141425-1');
+
+    window.addEventListener('load', function () {
+        globalAddScript('https://www.googletagmanager.com/gtag/js?id=UA-141425-1');
+    });
+</script>
+
+
+    <script>
+        // 非本站网址，新开tab页签
+        (function () {
+            var stopBubble = function (e) {
+                e && e.stopPropagation && e.stopPropagation();
+            }
+            var links = document.querySelectorAll('a');
+            [].slice.call(links).forEach(function (item) {
+                if (item.href && item.href.indexOf(window.location.host) === -1) {
+                    item.target = '_blank'
+                }
+                // 阻止冒泡，不触发彩蛋。
+                item.addEventListener('click', stopBubble, false);
+            });
+            var article = document.querySelector('article');
+            article && article.addEventListener('click', stopBubble, false)
+        })();
+    </script>
+    
+<script>
+    (function (window, document, undefined) {
+        var hearts = [];
+        var keywords = ["点个赞", "留个言", "赞赏一下", "邓子琦|个人主页", "81.80.203.121"];
+        function randomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        window.addEventListener('click', createWord)
+
+        function createWord(e) {
+            var d = document.createElement("span");
+            d.style.position = 'fixed';
+            d.style.zIndex = 9999;
+            d.style.color = 'rgb(' + [randomInt(255), randomInt(255), randomInt(255)].join(',') + ')';
+            d.innerHTML = keywords[randomInt(keywords.length)];
+            d.onselectstart = function () { return false; }
+
+            hearts.push({ el: d, x: e.clientX - 5, y: e.clientY - 5, alpha: 1, scale: 1 });
+            document.body.appendChild(d);
+        }
+        (function gameloop() {
+            for (var i = 0; i < hearts.length; i++) {
+                heart = hearts[i];
+                if (heart.alpha <= 0) {
+                    document.body.removeChild(heart.el);
+                    hearts.splice(i, 1);
+                    continue;
+                }
+                heart.y -= heart.alpha < 0.5 ? 2 : 1;
+                heart.scale += 0.002;
+                heart.alpha -= 0.013;
+                heart.el.style.transform = 'scale(' + heart.scale + ')';
+                heart.el.style.left = heart.x + 'px';
+                heart.el.style.top = heart.y + 'px';
+            }
+            setTimeout(gameloop, 10)
+        })();
+    })(window, document);
+</script>
+
+</body>
+
+</html>
